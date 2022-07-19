@@ -1,20 +1,32 @@
 import React, { useState } from "react";
+import { Icon } from "./EditTodoStyle";
+import TodosContext from "./TodosContext";
 import { updateTodos } from "./Utils";
 
-const EditTodo = ({ todo, setTodo, setTodoDisplay }) => {
+const EditTodo = ({ todo, setTodo, setTodoDisplay}) => {
     
     const [newValue, setNewValue] = useState(todo),
         [editDivClassName, seteditDivClassName] = useState("form-check edit-div"),
         [editIcon, setEditIcon] = useState("block");
 
+    const { todos, setTodos } = React.useContext(TodosContext);
+
     const updateStorage = (id) => {
-        let todosId= Object.keys(window.todos);
+        let todosId= Object.keys(todos);
         todosId.find(
-            el => { if(window.todos[el][id]){
-                window.todos[el][id][0]= newValue;
-            };
-        });
-        updateTodos(window.todos);
+            idOfTodos => {
+                let arrOfTodo = todos[idOfTodos][id];
+                arrOfTodo[0] = newValue;
+                setTodos((todos) => ({
+                    ...todos,
+                    [idOfTodos]: {
+                      ...todos[idOfTodos],
+                      [id]: arrOfTodo,
+                    },
+                }));
+            }
+        );
+        updateTodos(todos);
     };
 
     const editTodo = () => {
@@ -25,11 +37,11 @@ const EditTodo = ({ todo, setTodo, setTodoDisplay }) => {
 
     const saveEditTodo = (e) => {
         let id = e.target.parentElement.parentElement.id;
+        setTodo(newValue);
         updateStorage(id);
         seteditDivClassName("form-check edit-div");
         setEditIcon("block");
         setTodoDisplay("block");
-        setTodo(newValue);
     };
 
     return (
@@ -41,10 +53,10 @@ const EditTodo = ({ todo, setTodo, setTodoDisplay }) => {
                     value={ newValue } 
                     onChange={e => { setNewValue(e.target.value) }} 
                 />
-                <i className="bi bi-save p-2" onClick={ e => saveEditTodo(e) }></i>
+                <Icon className="bi bi-save p-2" onClick={ e => saveEditTodo(e) }></Icon>
             </div>
             <div className="p-2" style={{ display: editIcon }}>
-                <i className="bi bi-pencil edit-icon" onClick={ () => editTodo() }></i>
+                <Icon className="bi bi-pencil edit-icon" onClick={ () => editTodo() }></Icon>
             </div>
         </>
     );

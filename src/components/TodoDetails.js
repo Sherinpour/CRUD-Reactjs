@@ -3,14 +3,14 @@ import DeleteTodo from "./DeleteTodo";
 import EditTodo from "./EditTodo";
 import CheckBox from "./CheckBox";
 
-const TodoDetails = ({ item, checked }) => {
+const TodoDetails = ({ item, checked}) => {
     const[todo, setTodo] = useState(item),
     [check, setCheck] = useState(checked),
     [todoDisplay, setTodoDisplay] = useState("block");
 
     if(todo === ''){
         return;
-    }
+    };
 
     return (
         <>

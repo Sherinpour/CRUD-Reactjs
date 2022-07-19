@@ -1,20 +1,25 @@
-import React, { useState } from "react";
-import { getTodos, updateTodos } from "./Utils";
+import React from "react";
+import TodosContext from './TodosContext';
+import { updateTodos } from "./Utils";
 
 const CheckBox = ({ check, setCheck }) => {
+    const { todos, setTodos } = React.useContext(TodosContext);
     
     const updateStorage = (todoId) => {
-        let todos = getTodos();
         let todosId= Object.keys(todos);
         todosId.find(
-            el => { if(todos[el][todoId]){
-                if(check){
-                    todos[el][todoId][1]= false;
-                }else{
-                    todos[el][todoId][1]= true;
-                };
-            };
-        });
+            idOfTodos => {
+                let arrOfTodo = todos[idOfTodos][todoId];
+                check ? arrOfTodo[1] = false : arrOfTodo[1] = true;
+                setTodos((todos) => ({
+                    ...todos,
+                    [idOfTodos]: {
+                      ...todos[idOfTodos],
+                      [todoId]: arrOfTodo,
+                    },
+                }));
+            }
+        );
         updateTodos(todos);
     };
 
@@ -22,23 +27,11 @@ const CheckBox = ({ check, setCheck }) => {
         setCheck(!check);
         const todoId = e.target.parentElement.parentElement.id;
         updateStorage(todoId);
-
-    };
-
-    const rendercheckBox = () => {
-        if(check){
-            return (
-               <input type="checkbox" className="form-check-input" onChange={ e => { handleChange(e) }} checked />
-            );
-        };
-        return (
-            <input type="checkbox" className="form-check-input" onChange={ e => { handleChange(e) }} />
-        );
     };
 
     return (
         <>
-            { rendercheckBox() }
+            <input type="checkbox" className="form-check-input" onChange={ e => { handleChange(e) }} checked={check} />
         </>
     );
 };

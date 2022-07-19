@@ -1,27 +1,29 @@
 import React from "react";
-import { getTodos, updateTodos } from "./Utils";
+import { Icon } from "./EditTodoStyle";
+import TodosContext from './TodosContext';
+import { updateTodos } from "./Utils";
 
 const DeleteTodo = () => {
-    
+    const { todos, setTodos } = React.useContext(TodosContext);
+
     const deleteTodo = (e) => {
-        let todoId = e.target.parentElement.parentElement.parentElement.parentElement.id;
-        let div = document.getElementById(e.target.parentElement.parentElement.id);
-
-        div.parentNode.removeChild(div);
-        delete window.todos[todoId][e.target.parentElement.parentElement.id];
-
-        if(Object.keys(window.todos[todoId]).length == 0){
-            delete window.todos[todoId]
-            let div = document.getElementById(todoId);
-            div.parentNode.removeChild(div);
-        }
-        updateTodos(window.todos);
+        let idOfTodos = e.target.parentElement.parentElement.parentElement.parentElement.id;
+        let idOfTodo = e.target.parentElement.parentElement.id;
+        setTodos(todos => {
+            const copyTodos = {...todos};
+            delete copyTodos[idOfTodos][idOfTodo];
+            if(Object.keys(todos[idOfTodos]).length == 0){
+                delete copyTodos[idOfTodos];
+            }
+            return copyTodos;  
+            });
+        updateTodos(todos);
     };
 
     return(
         <div className="p-2">
-            <i className="bi bi-journal-x remove-icon" onClick={ e => deleteTodo(e)}>
-            </i>
+            <Icon className="bi bi-journal-x remove-icon" onClick={ e => deleteTodo(e)}>
+            </Icon>
         </div>
     );
 }
