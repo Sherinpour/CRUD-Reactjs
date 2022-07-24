@@ -2,7 +2,9 @@
   
 The project is a single webpage containing different list items and a text area to add custom tasks.
 
-![image](https://user-images.githubusercontent.com/75546661/166106424-8c6a820e-9135-44bd-b65d-cfade7e986ea.png)
+
+![Capture](https://user-images.githubusercontent.com/75546661/180642079-a0eaf5cf-b478-42b1-8282-c401b5207437.PNG)
+
 
 <h2> Features </h2>
   <ul>
