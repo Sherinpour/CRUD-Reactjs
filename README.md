@@ -14,7 +14,7 @@ The project is a single webpage containing different list items and a text area 
   </ul>
    
    <h2> Visit live </h2>
-    https://sherinpour.github.io/CRUD-project/
+    https://crud-reactjs-mu.vercel.app/
     
    <h2>License</h2>
    
