@@ -1,14 +1,13 @@
 import React from "react";
 import { Icon } from "./EditTodoStyle";
 import TodosContext from './TodosContext';
-import { updateTodos } from "./Utils";
 
-const DeleteTodo = () => {
+const DeleteTodo = ({idOfData}) => {
     const { todos, setTodos } = React.useContext(TodosContext);
 
     const deleteTodo = (e) => {
-        let idOfTodos = e.target.parentElement.parentElement.parentElement.parentElement.id;
-        let idOfTodo = e.target.parentElement.parentElement.id;
+        let idOfTodo = parseInt(e.target.dataset.id);
+        let idOfTodos = Object.keys(todos).find(key => todos[key][idOfTodo]);
         setTodos(todos => {
             const copyTodos = {...todos};
             delete copyTodos[idOfTodos][idOfTodo];
@@ -17,12 +16,11 @@ const DeleteTodo = () => {
             }
             return copyTodos;  
             });
-        updateTodos(todos);
     };
 
     return(
         <div className="p-2">
-            <Icon className="bi bi-journal-x remove-icon" onClick={ e => deleteTodo(e)}>
+            <Icon className="bi bi-journal-x remove-icon" data-id={idOfData} onClick={ e => deleteTodo(e)}>
             </Icon>
         </div>
     );

@@ -3,7 +3,7 @@ import { Icon } from "./EditTodoStyle";
 import TodosContext from "./TodosContext";
 import { updateTodos } from "./Utils";
 
-const EditTodo = ({ todo, setTodo, setTodoDisplay}) => {
+const EditTodo = ({ todo, setTodo, setTodoDisplay, idOfData}) => {
     
     const [newValue, setNewValue] = useState(todo),
         [editDivClassName, seteditDivClassName] = useState("form-check edit-div"),
@@ -36,7 +36,7 @@ const EditTodo = ({ todo, setTodo, setTodoDisplay}) => {
     };
 
     const saveEditTodo = (e) => {
-        let id = e.target.parentElement.parentElement.id;
+        let id = parseInt(e.target.dataset.id);
         setTodo(newValue);
         updateStorage(id);
         seteditDivClassName("form-check edit-div");
@@ -53,7 +53,7 @@ const EditTodo = ({ todo, setTodo, setTodoDisplay}) => {
                     value={ newValue } 
                     onChange={e => { setNewValue(e.target.value) }} 
                 />
-                <Icon className="bi bi-save p-2" onClick={ e => saveEditTodo(e) }></Icon>
+                <Icon className="bi bi-save p-2" data-id={idOfData} onClick={ e => saveEditTodo(e) }></Icon>
             </div>
             <div className="p-2" style={{ display: editIcon }}>
                 <Icon className="bi bi-pencil edit-icon" onClick={ () => editTodo() }></Icon>

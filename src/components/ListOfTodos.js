@@ -10,7 +10,7 @@ const ListOfTodos = () => {
       return  Object.entries(values).map(([idOfTodo, value], j) => {
             return (
                 <div key={idOfTodo} id={idOfTodo} className="d-flex list-group-item">
-                    <TodoDetails item={value[0]} checked={value[1]} />
+                    <TodoDetails item={value[0]} checked={value[1]} idOfData={idOfTodo}/>
                 </div>
             );
         });
