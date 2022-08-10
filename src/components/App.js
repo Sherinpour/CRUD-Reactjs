@@ -1,44 +1,51 @@
-import React, { useEffect, useState  } from "react";
+import React, { useEffect, useState } from "react";
+import TodosContext from './TodosContext';
 import { generateId, updateTodos, generateGroupOfTodos, themeSwitcher } from "./Utils";
 import AddTodo from "./AddTodo";
 import ListOfTodos from "./ListOfTodos";
 
 const App = () => {
-    const[newItem , setNewItem] = useState({value: '', id: null});
+    const[todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || {});
     
     const onItemSubmit = (todoValue, checked) => {
         let idOfTodo = generateId();
-        let objOfDateOfTodo = window.todos[generateGroupOfTodos(idOfTodo)];
-        
+        let idOfTodos = generateGroupOfTodos(idOfTodo);
+                
         if(todoValue === ''){
             return;
         };
-        if(objOfDateOfTodo){
-            objOfDateOfTodo[idOfTodo] = [todoValue, checked];
-        }else{
-            window.todos[generateGroupOfTodos(idOfTodo)] = {};
-            window.todos[generateGroupOfTodos(idOfTodo)][idOfTodo] = [todoValue, checked];
-        }
+        if(todos[idOfTodos]){
+            setTodos((todos) => ({
+                ...todos,
+                [idOfTodos]: {
+                  ...todos[idOfTodos],
+                  [idOfTodo]: [todoValue, checked],
+                },
+            }));
 
-        setNewItem({value: todoValue, id: idOfTodo});
+        }else{
+            setTodos({...todos, [idOfTodos]: {[idOfTodo]: [todoValue, checked]}});
+        };
     };   
 
     useEffect(() => {
-        updateTodos(window.todos);
-    }, [newItem]);
+        updateTodos(todos);
+    }, [todos]);
 
     return (
-        <div className="align-self-center">
-            <div className="card container">
-                <div className="theme-switcher">
-                    <button className="theme_toogle_btn" onClick={e => { themeSwitcher(e) }}>
-                        <i className="bi bi-brightness-high"></i>
-                    </button>
+        <TodosContext.Provider value={{ todos, setTodos }} >
+            <div className="align-self-center">
+                <div className="card container">
+                    <div className="theme-switcher">
+                        <button className="theme_toogle_btn" onClick={e => { themeSwitcher(e) }}>
+                            <i className="bi bi-brightness-high"></i>
+                        </button>
+                    </div>
+                    <ListOfTodos />
                 </div>
-                <ListOfTodos />
+                <AddTodo onItemSubmit={ onItemSubmit } />
             </div>
-            <AddTodo onItemSubmit={ onItemSubmit } />
-        </div>
+        </TodosContext.Provider>
     );
 };
 

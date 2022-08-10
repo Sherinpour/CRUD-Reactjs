@@ -1,6 +1,3 @@
-const LOCAL_STORAGE_KEY = "todos";
-window.todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {};
-
 (function() {
     var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -17,12 +14,7 @@ export const generateId = () => {
 };
 
 export const updateTodos = (todos) => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
-};
-
-export const getTodos = () => {
-    let todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    return todos;
+    localStorage.setItem('todos', JSON.stringify(todos));
 };
 
 export const generateGroupOfTodos = (idOfTodo) => {
@@ -31,8 +23,8 @@ export const generateGroupOfTodos = (idOfTodo) => {
     return dateOfTodoId;
 };
 
-export const generateDateOfTodos = (idOfTodos) => {
-    let idDate =  Object.keys(window.todos[idOfTodos])[0];
+export const generateDateOfTodos = (idOfTodos, todos) => {
+    let idDate =  Object.keys(todos[idOfTodos])[0];
     let date =  new Date(idDate * 1000);
     return date;
 };

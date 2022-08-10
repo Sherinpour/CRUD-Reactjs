@@ -103,15 +103,20 @@
     margin-top: -10px;
 }
 
-.bi{
-    font-size: 24px;
-    cursor: pointer;
-}
-
 .theme-switcher{
     height: 2rem;
 }
 
 .edit-div{
     display: none;
+}
+
+.bi{
+    font-size: 24px;
+    cursor: pointer;
+}
+
+i{
+    font-size: 24px;
+    cursor: pointer;
 }
