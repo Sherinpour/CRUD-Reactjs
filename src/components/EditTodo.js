@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import TodosContext from "./TodosContext";
-import { updateTodos } from "./Utils";
 
 const EditTodo = ({ todo, setTodo, setTodoDisplay, idOfData}) => {
     
@@ -25,7 +24,6 @@ const EditTodo = ({ todo, setTodo, setTodoDisplay, idOfData}) => {
                 }));
             }
         );
-        updateTodos(todos);
     };
 
     const editTodo = () => {

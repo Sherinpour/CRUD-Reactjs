@@ -1,6 +1,5 @@
 import React from "react";
 import TodosContext from './TodosContext';
-import { updateTodos } from "./Utils";
 
 const CheckBox = ({ check, setCheck }) => {
     const { todos, setTodos } = React.useContext(TodosContext);
@@ -20,7 +19,6 @@ const CheckBox = ({ check, setCheck }) => {
                 }));
             }
         );
-        updateTodos(todos);
     };
 
     const handleChange = e => {
