@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Icon } from "./EditTodoStyle";
 import TodosContext from "./TodosContext";
 import { updateTodos } from "./Utils";
 
@@ -53,10 +52,10 @@ const EditTodo = ({ todo, setTodo, setTodoDisplay, idOfData}) => {
                     value={ newValue } 
                     onChange={e => { setNewValue(e.target.value) }} 
                 />
-                <Icon className="bi bi-save p-2" data-id={idOfData} onClick={ e => saveEditTodo(e) }></Icon>
+                <i className="bi bi-save p-2" data-id={idOfData} onClick={ e => saveEditTodo(e) }></i>
             </div>
             <div className="p-2" style={{ display: editIcon }}>
-                <Icon className="bi bi-pencil edit-icon" onClick={ () => editTodo() }></Icon>
+                <i className="bi bi-pencil edit-icon" onClick={ () => editTodo() }></i>
             </div>
         </>
     );

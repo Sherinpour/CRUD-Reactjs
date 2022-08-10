@@ -1,5 +1,4 @@
 import React from "react";
-import { Icon } from "./EditTodoStyle";
 import TodosContext from './TodosContext';
 
 const DeleteTodo = ({idOfData}) => {
@@ -20,8 +19,8 @@ const DeleteTodo = ({idOfData}) => {
 
     return(
         <div className="p-2">
-            <Icon className="bi bi-journal-x remove-icon" data-id={idOfData} onClick={ e => deleteTodo(e)}>
-            </Icon>
+            <i className="bi bi-journal-x remove-icon" data-id={idOfData} onClick={ e => deleteTodo(e)}>
+            </i>
         </div>
     );
 }
